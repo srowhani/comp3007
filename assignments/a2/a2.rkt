@@ -202,7 +202,7 @@
     ((list? T) ;if pair, return new pair of map of left and right
          (cons (treemap f (car T))
                (treemap f (cdr T))))
-    (else (f T))))
+    ((number? T) (f T))))
 ;q8 - testig
 (display "Question 8: \n")
 (~a "(treemap sqr '(1 (2 3) ((4 5) (6 7)) (((8 (9)))))) => " (treemap sqr '(1 (2 3) ((4 5) (6 7)) (((8 (9)))))))
