@@ -5,4 +5,4 @@ The procedures are all seperated by comments describing what the procedure does,
 
 Testing:
 
-Run in dr. racket, or run `racket a2.rkt` in terminal.
+Run in dr. racket, or run `racket a2_test.rkt` in terminal.
