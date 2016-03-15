@@ -30,8 +30,8 @@
   ; @return {[type]}        [description]
  ; -
 (define (multiply-interval a b)
-  (cons (min ( ; (lower a) (lower b)) ( ; (lower a) (upper b)) ( ; (upper a) (lower b)) ( ; (upper a) (upper b)))
-        (max ( ; (lower a) (lower b)) ( ; (lower a) (upper b)) ( ; (upper a) (lower b)) ( ; (upper a) (upper b)))))
+  (cons (min (* (lower a) (lower b)) (* (lower a) (upper b)) (* (upper a) (lower b)) (* (upper a) (upper b)))
+        (max (* (lower a) (lower b)) (* (lower a) (upper b)) (* (upper a) (lower b)) (* (upper a) (upper b)))))
 ; -
   ; Divides an Interval
   ; @param  {[type]} define (divide-interval a b [description]
@@ -178,6 +178,14 @@
       identity
       (compose (repeated-iter f (- n 1)) f))) ; call (repeat (sqr (- n 1)) sqr) -> does sqr, will do again until n is 0. then returns identity to show value
 
+(define (r-iter f n)
+  (define composition f)
+  (define (helper count)
+    (if (<= count 0)
+      (compose identity composition)
+      ((lambda (x)((set! composition (compose f composition)) (helper x))) (- count 1))))
+  (helper n))
+((r-iter sqr 3) 2)
 ;q6
 ; -
   ; Counts the depth recursively. Counts depth of all leaves, and use cool hack apply to max to return largest of branches.
