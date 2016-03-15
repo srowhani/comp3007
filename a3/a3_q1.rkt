@@ -1,5 +1,8 @@
 #lang racket
-
+; make-node label
+; Creates a Node Object
+; @param  label - Label for given node
+; @return Node
 (define (make-node label)
   (define (get) label)
   (define (set l)
@@ -10,14 +13,23 @@
     (cond ((eq? m 'set) set)
           ((eq? m 'get) get)))
   dispatch)
-
+; make-edge a b
+; Creates an Edge object, essentially a relation between
+; two Nodes.
+; @param  a - Starting node
+; @param  b - Ending node
+; @return Edge
 (define (make-edge a b)
   (define get (λ () (cons a b)))
   (define (dispatch m)
     (cond
       ((eq? m 'get) get)))
   dispatch)
-
+  ; make-graph
+  ; Creates a graph object.
+  ; Maintains a collection of Nodes and Edges,
+  ; and the relation between them.
+  ; @return Graph
 (define (make-graph)
   (let ((nodes '()) (edges '()))
     (define get-nodes (λ () nodes))
@@ -47,7 +59,7 @@
             (((cdr ((_edge 'get))) 'get))
             (((car ((_edge 'get))) 'get))))
           (filter (λ (edge)
-            (eq? node (car ((edge 'get)))))      
+            (eq? node (car ((edge 'get)))))
             edges)))))
         nodes))
     (define (dispatch m)

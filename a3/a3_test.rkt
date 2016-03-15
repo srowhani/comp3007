@@ -6,19 +6,25 @@
 (define n1 (make-node 1))
 (define n2 (make-node 2))
 (define n3 (make-node 3))
+(define n4 (make-node -1))
 (define e1 (make-edge n1 n2))
 (define e2 (make-edge n1 n3))
 (define e3 (make-edge n2 n3))
-
-
-((g 'add-node) n1)
-((g 'add-node) n2)
-((g 'add-node) n3)
-
-((g 'add-edge) e1)
-((g 'add-edge) e2)
-((g 'add-edge) e3)
-
-((g 'print-graph))
-
+(define e4 (make-edge n1 n4))
+(~a "((g 'add-node) n1) -> " ((g 'add-node) n1))
+(~a "((g 'add-node) n2) -> " ((g 'add-node) n2))
+(~a "((g 'add-node) n3) -> " ((g 'add-node) n3))
+(~a "((g 'add-edge) e1) -> " ((g 'add-edge) e1))
+(~a "((g 'add-edge) e2) -> " ((g 'add-edge) e2))
+(~a "((g 'add-edge) e3) -> " ((g 'add-edge) e3))
+(~a "((g 'add-edge) e4) -> " ((g 'add-edge) e4))
+(~a "((g 'print-graph)) -> " ((g 'print-graph)))
 ;q3==============================
+(~a "(stream-ref (seq-gen) 5) -> " (stream-ref (seq-gen) 5))
+(~a "(stream->list (first 5 (seq-gen))) -> " (stream->list (first 5 (seq-gen))))
+(~a "(stream->list (first 5 (stream-filter odd? (seq-gen)))) -> " (stream->list (first 5 (stream-filter odd? (seq-gen)))))
+(~a "(stream->list (first 5 (random-gen))) -> " (stream->list (first 5 (random-gen))))
+(~a "(stream->list (first 10 (fib-gen))) -> " (stream->list (first 10 (fib-gen))))
+(~a "(list->stream (list 1 2 3)) -> " (list->stream (list 1 2 3)))
+(~a "(stream-cdr (list->stream (list 1 2 3))) -> " (stream-cdr (list->stream (list 1 2 3))))
+(~a "(stream->list (first 10 (partial-sums (seq-gen)))) -> " (stream->list (first 10 (partial-sums (seq-gen)))))

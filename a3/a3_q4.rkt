@@ -34,12 +34,12 @@
         ((assignment? exp) (eval-assignment exp env))
         ((definition? exp) (eval-definition exp env))
         ((if? exp) (eval-if exp env))
-        ((let? exp) (eval (let->combination exp) env))
+        ((let? exp) (eval (let->combo exp) env))
         ((lambda? exp)
          (make-procedure (lambda-parameters exp)
                          (lambda-body exp)
                          env))
-        ((begin? exp) 
+        ((begin? exp)
          (eval-sequence (begin-actions exp) env))
         ((cond? exp) (eval (cond->if exp) env))
         ((application? exp)
@@ -113,7 +113,7 @@
 ;predicate method for variables
 (define (variable? exp) (symbol? exp))
 
-;predicate and accessors for assignment (set!) 
+;predicate and accessors for assignment (set!)
 (define (assignment? exp)
   (tagged-list? exp 'set!))
 
@@ -148,19 +148,13 @@
 ;let definition
 (define (let? exp) (tagged-list? exp 'let))
 
-(define (let-variables exp)
-    (map car (cadr exp)))
+(define let-params (lambda (exp) (map car (cadr exp))))
+(define let-vals   (lambda (exp) (map cadr (cadr exp))))
 
-(define (let-values exp)
-    (map cadr (cadr exp)))
-
-(define (let-body exp)
-    (cddr exp))
-
-(define (let->combination exp)
-    (let ((params (let-variables exp))
-          (vals (let-values exp))
-          (body (let-body exp)))
+(define (let->combo exp)
+    (let ((params (let-params exp))
+          (vals (let-vals exp))
+          (body (cddr exp)))
        (cons (make-lambda params body) vals)))
 
 ;predicate and accessors for if
@@ -358,7 +352,7 @@
         (list '* *)
         (list '/ /)
         (list 'cons cons)
-        (list 'null? null?)    
+        (list 'null? null?)
         ;;      more primitives
         ))
 
