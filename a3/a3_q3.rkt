@@ -60,7 +60,7 @@
   (define (gen n)
     (cons-stream (fib n) (gen (+ n 1))))
   (gen 0))
-;b.v
+;c
 (define (partial-sums stream)
   (define (h n s)
     (cons-stream n (h (+ n (stream-car (stream-cdr s))) (stream-cdr s))))
