@@ -1,5 +1,7 @@
 ## COMP3007
+
 __Student Name__: Seena Rowhani
+
 __Student Number__: 100945353
 
 #### Testing
@@ -14,20 +16,21 @@ Or you can also run `a3_test.rkt` from __DrRacket__.
 
 #### Notes
 
-Regarding `a3_q4.rkt`, since there is a prompt for input, the input must be typed by
-whomever marks this assignment.
+Regarding `a3_q4.rkt`, since there is a prompt for input, the input must be typed by whomever marks this assignment.
 
 To test what's been specified, the following snipped should be sufficient.
 
 ```
   (let ((a 1)) (+ a 1))
 ```
+
 Which should return 2.
 
 __Lines of Interest in `a3_q4.rkt`__:
 
 37: `((let? exp) (eval (let->combo exp) env))`
-149:158: Let definition.
+
+149:158: Where I've defined `let`.
 
 ### Test Output
 
