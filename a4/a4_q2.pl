@@ -1,13 +1,13 @@
 %db
-actor(jonny, depp, gender(male)).
-actor(bruce, willis, gender(male)).
+actor(jonny, depp, gender(male)).%
+actor(bruce, willis, gender(male)).%
 actor(glenn, close, gender(female)).
-actor(orlando, bloom, gender(male)).
-actor(jennifer, lawrence, gender(female)).
-actor(sean, bean, gender(male)).
+actor(orlando, bloom, gender(male)).%
+actor(jennifer, lawrence, gender(female)).%
+actor(sean, bean, gender(male)).%
 actor(angelina, jolie, gender(female)).
-actor(keira, knightley, gender(female)).
-actor(benedict, cumberbatch, gender(male)).
+actor(keira, knightley, gender(female)).%
+actor(benedict, cumberbatch, gender(male)).%
 
 movie(year(2003), title([pirates,of,the,carribean]), cast([actor(jonny, depp), actor(keira, knightley), actor(orlando, bloom)])).
 movie(year(2001), title([lord,of,the,rings]), cast([actor(orlando, bloom), actor(sean, bean)])).
@@ -56,5 +56,12 @@ orlandoBloomFilms() :-
   writeln(Title).
 %orlandoBloomFilms().
 %  [3 marks] What actor(s) are in the cast of more than 1 movie?
-
+dupeactors() :-
+  movie(_,T1, cast(L1)),
+  movie(_,T2, cast(L2)),
+  not(T1 = T2),
+  intersection(L1,L2,R),
+  not(R = []),
+  writeln((T1, R)).
+%dupeactors().
 %  [3 marks] What actor(s) are not in the cast of any movie?
