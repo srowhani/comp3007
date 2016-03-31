@@ -1,3 +1,9 @@
+/**
+ * Name:            Seena Rowhani
+ * Student Number:  100945353
+ * Course:          COMP3007
+ */
+
 %database
 person(tom, wang).
 person(betty, wang).
@@ -67,7 +73,7 @@ is_mother(X) :-
  */
 is_father(X) :-
   father(X,_).
-%is_father(person(fred, wang)).
+%is_father(person(tom, wang)).
 %is_father(person(jonny, wang)).
 
 /**

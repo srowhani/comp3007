@@ -1,3 +1,9 @@
+/**
+ * Name:            Seena Rowhani
+ * Student Number:  100945353
+ * Course:          COMP3007
+ */
+
 % [2 marks] Write a predicate myAppend(L1,L2,L3) to append 2 lists (order is important, you may not use the built in append)
 
 myAppend([],X,X).

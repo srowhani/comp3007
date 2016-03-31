@@ -1,3 +1,9 @@
+/**
+ * Name:            Seena Rowhani
+ * Student Number:  100945353
+ * Course:          COMP3007
+ */
+
 %Write and test a program to solve the Towers of Hanoi problem.
 %The problem is to move N disks from the left peg to the right peg using the center peg as an auxiliary holding peg.
 %At no time can a larger disk be placed upon a smaller disk. The following diagram depicts the setup for N=3 disks.
@@ -27,4 +33,3 @@ hanoi(N,Left,Right,Center) :-
 
 %hanoi(3,a,b,c).
 %hanoi(4,a,b,c).
-%hanoi(5,a,b,c).

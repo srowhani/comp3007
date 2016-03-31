@@ -1,3 +1,9 @@
+/**
+ * Name:            Seena Rowhani
+ * Student Number:  100945353
+ * Course:          COMP3007
+ */
+
 %facts
 actor(jonny, depp, gender(male)).
 actor(bruce, willis, gender(male)).

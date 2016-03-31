@@ -1,3 +1,9 @@
+/**
+ * Name:            Seena Rowhani
+ * Student Number:  100945353
+ * Course:          COMP3007
+ */
+
 % [3 marks] Write a predicate to find the last element of a list. You may not use the built in last predicate in your answer.
 
 %Base Case: X is last element.

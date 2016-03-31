@@ -1,3 +1,9 @@
+/**
+ * Name:            Seena Rowhani
+ * Student Number:  100945353
+ * Course:          COMP3007
+ */
+
 % [15 marks total] Suppose we represent a directed graph by an edge relation:
 %
 % edge(X,Y,L) %the edge from X to Y is of length L.

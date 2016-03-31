@@ -1,0 +1,215 @@
+/**
+ * Name:            Seena Rowhani
+ * Student Number:  100945353
+ * Course:          COMP3007
+ */
+
+a4_q1:
+
+  different(person(jonny, wang), person(jonny, wang)).
+    false.
+  different(person(betty, wang), person(jonny, wang)).
+    true.
+  is_mother(person(betty, wang)).
+    true ;
+    false.
+  is_father(person(tom, wang)).
+    true ;
+    false.
+  is_father(person(jonny, wang)).
+    false.
+  aunt(person(susan, lee), person(jonny, wang)).
+    true ;
+    true ;
+    false.
+  aunt(person(susan, lee), person(fred, wang)).
+    false.
+  aunt(person(fred, lee), person(jonny, wang)).
+    false.
+  uncle(person(fred, lee), person(jonny, wang)).
+    true ;
+    true ;
+    false.
+  sister(person(susan, lee), X)
+    X = person(betty, wang) ;
+    X = person(fred, lee) ;
+    X = person(betty, wang) ;
+    X = person(fred, lee) ;
+  brother(person(fred, lee), X).
+    X = person(betty, wang) ;
+    X = person(susan, lee) ;
+    X = person(betty, wang) ;
+    X = person(susan, lee) ;
+  brother(person(fred, lee), person(susan, lee)).
+    true ;
+    true ;
+    false.
+  grandfather(person(alex, lee), X).
+    X = person(jonny, wang) ;
+    false.
+  grandmother(person(wendy, lee), X).
+    X = person(jonny, wang) ;
+    false.
+  ancestor(person(alex,lee), X).
+    X = person(betty, wang) ;
+    X = person(susan, lee) ;
+    X = person(fred, lee) ;
+    X = person(jonny, wang) ;
+    false.
+
+a4_q2:
+
+  after2003(R).
+    R = [[pirates, of, the, carribean], 2003] ;
+    R = [[the, imitation, game], 2014] ;
+    R = [[the, hunger, games], 2012].
+  containsOf(R).
+    R = [pirates, of, the, carribean] ;
+    R = [lord, of, the, rings] ;
+    false.
+  commonTitle(R).
+    R = [[pirates, of, the, carribean], [lord, of, the, rings], [of, the]] ;
+    R = [[pirates, of, the, carribean], [the, imitation, game], [the]] ;
+    R = [[pirates, of, the, carribean], [the, hunger, games], [the]] ;
+    R = [[lord, of, the, rings], [pirates, of, the, carribean], [of, the]] ;
+    R = [[lord, of, the, rings], [the, imitation, game], [the]] ;
+    R = [[lord, of, the, rings], [the, hunger, games], [the]] ;
+    R = [[the, imitation, game], [pirates, of, the, carribean], [the]] ;
+    R = [[the, imitation, game], [lord, of, the, rings], [the]] ;
+    R = [[the, imitation, game], [the, hunger, games], [the]] ;
+    R = [[the, hunger, games], [pirates, of, the, carribean], [the]] ;
+    R = [[the, hunger, games], [lord, of, the, rings], [the]] ;
+    R = [[the, hunger, games], [the, imitation, game], [the]] ;
+    false.
+  getActresses(R).
+    R = actor(glenn, close) ;
+    R = actor(jennifer, lawrence) ;
+    R = actor(angelina, jolie) ;
+    R = actor(keira, knightley) ;
+    false.
+  getActressesFromFilms(R).
+    R = [title([the, hunger, games]), actor(jennifer, lawrence)] ;
+    R = [title([pirates, of, the, carribean]), actor(keira, knightley)] ;
+    R = [title([the, imitation, game]), actor(keira, knightley)] ;
+    false.
+  orlandoBloomFilms(R).
+    R = title([pirates, of, the, carribean]) ;
+    R = title([lord, of, the, rings]) ;
+    false.
+  dupeactors(R).
+    R = [title([pirates, of, the, carribean]), [actor(orlando, bloom)]] ;
+    R = [title([pirates, of, the, carribean]), [actor(keira, knightley)]] ;
+    R = [title([lord, of, the, rings]), [actor(orlando, bloom)]] ;
+    R = [title([the, imitation, game]), [actor(keira, knightley)]] ;
+    false.
+  nomovies(R).
+    R = actor(glenn, close) ;
+    R = actor(angelina, jolie) ;
+    false.
+a4_q3:
+  hanoi(3,a,b,c).
+    [a,->,b]
+    [a,->,c]
+    [b,->,c]
+    [a,->,b]
+    [c,->,a]
+    [c,->,b]
+    [a,->,b]
+    true.
+  hanoi(4,a,b,c).
+    [a,->,c]
+    [a,->,b]
+    [c,->,b]
+    [a,->,c]
+    [b,->,a]
+    [b,->,c]
+    [a,->,c]
+    [a,->,b]
+    [c,->,b]
+    [c,->,a]
+    [b,->,a]
+    [c,->,b]
+    [a,->,c]
+    [a,->,b]
+    [c,->,b]
+    true.
+
+a4_q4:
+  mylast(E,[1,2,3]).
+    E = 3 ;
+    false.
+  mylast(3, [1,2,3]).
+    true ;
+    false.
+  after(Query, [1,2,3,4,5], [3,4,5]).
+    Query = 2 ;
+    false.
+  after(2,[1,2,3,4,5], [3,4,5]).
+    true ;
+    false.
+  after(2, [1,2,3,4,5], Result).
+    Result = [3, 4, 5] ;
+    false.
+  nextto(1,2,[1,2,3,4,5]).
+    true ;
+    false.
+  nextto(X,2,[1,2,1,3,5,4]).
+    X = 1 ;
+    false.
+  nextto(1,Y,[1,2,1,3,5,4]).
+    Y = 2 ;
+    Y = 3 ;
+    false.
+  occurs_at_position(E,[1,2,3,4],3).
+    E = 4 ;
+    false.
+
+a4_q5:
+
+  myAppend([1,2,3], [1], X).
+    X = [1, 2, 3, 1].
+  myAppend([1,2,3], X, [1,2,3,1]).
+    X = [1].
+  myAppend(X, [1], [1,2,3,1]).
+    X = [1, 2, 3] ;
+    false.
+  myLast(E,[1,2,3]).
+    E = 3 ;
+    false.
+  myLast(3, [1,2,3]).
+    true ;
+    false.
+  nextto(1,2,[1,2,3,4,5]).
+    true ;
+    false.
+  nextto(X,2,[1,2,1,3,5,4]).
+    X = 1 ;
+    false.
+  nextto(1,Y,[1,2,1,3,5,4]).
+    Y = 2 ;
+    Y = 3 ;
+    false.
+  myReverse([1,2,3], X).
+    X = [3, 2, 1].
+  myReverse(X, [1,2,3]).
+    X = [3, 2, 1] .
+  myReverse([1,2,3], [3,2,1]).
+    true.
+a4_q6:
+  connected(a,c).
+    true ;
+    false.
+  pathLength(a,d,R).
+    R = 6 ;
+    R = 2.
+  listForPath(a,d,L).
+    L = [edge(a, d, 2)] ;
+    L = [edge(a, b, 2), edge(b, c, 2), edge(c, d, 2)] ;
+    false.
+  onPath(a,c,edge(b,c,_)).
+    true ;
+    false.
+  onPath(a,c,X).
+    X = edge(a, b, 2) ;
+    X = edge(b, c, 2) ;
+    false.
