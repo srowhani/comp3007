@@ -1,91 +1,192 @@
-person(name(tom, wang),
-  gender(male),
-  parents([]),
-  so(name(betty, wang)),
-  sibling(name(fred, wang))).
+%database
+person(tom, wang).
+person(betty, wang).
+person(jonny, wang).
+person(alex, lee).
+person(wendy, lee).
+person(betty, wang).
+person(susan, lee).
+person(fred, lee).
 
-person(name(betty, wang),
-  gender(female),
-  parents([name(alex, lee), name(wendy, lee)]),
-  so(name(tom, wang)),
-  sibling(name(susan, lee))).
+male(person(tom, wang)).
+male(person(jonny, wang)).
+male(person(fred, lee)).
+male(person(alex,lee)).
 
-person(name(alex, lee),
-  gender(male),
-  parents([]),
-  so(name(wendy, lee)),
-  sibling()).
+female(person(betty, wang)).
+female(person(wendy, lee)).
+female(person(betty, wang)).
+female(person(susan, lee)).
 
-person(name(wendy, lee),
-  gender(female),
-  parents([]),
-  so(name(alex, lee)),
-  sibling()).
+parent(person(tom, wang), person(jonny, wang)).
+parent(person(betty, wang), person(jonny, wang)).
+parent(person(alex, lee), person(betty, wang)).
+parent(person(wendy, lee), person(betty, wang)).
+parent(person(alex, lee), person(susan, lee)).
+parent(person(wendy, lee), person(susan, lee)).
+parent(person(alex, lee), person(fred, lee)).
+parent(person(wendy, lee), person(fred, lee)).
 
-person(
-  name(jonny, wang),
-  gender(male),
-  parents([name(tom, wang), name(betty, wang)]),
-  so([]),
-  sibling()).
+father(person(tom, wang), person(jonny, wang)).
+father(person(alex, lee), person(betty, wang)).
+father(person(alex, lee), person(susan, lee)).
+father(person(alex, lee), person(fred, lee)).
 
-person(
-  name(fred, wang),
-  gender(male),
-  parents([]),
-  so([]),
-  sibling(name(tom, wang))).
+mother(person(betty, wang), person(jonny, wang)).
+mother(person(wendy, lee), person(betty, wang)).
+mother(person(wendy, lee), person(susan, lee)).
+mother(person(wendy, lee), person(fred, lee)).
 
-person(name(susan, lee),
-  gender(female),
-  parents([]),
-  so([]),
-  sibling(name(betty, wang))).
-%facts
-male(person(_,gender(male),_,_,_)).
-female(person(_,gender(female),_,_,_)).
-parent(person(Name,_,_,_,_), person(_,_,parents([Dad, Mom]),_,_)) :-
-  Name = Dad; Name = Mom.
-father(X,Y) :- male(X), parent(X,Y).
-mother(X,Y) :- female(X), parent(X,Y).
-married(person(N1,_,_,so(N2),_),person(N2,_,_,so(N1),_)).
+married(person(tom, wang), person(betty, wang)).
+married(person(alex, lee), person(wendy, lee)).
 
-name(person(R, _,_,_), R)
-%rules
-% different(X,Y) X and Y are different
-different(X,Y) :- not(X = Y).
-% is_mother(X) X is a mother
+/**
+ * Checks if X is different from Y
+ * @param  {[person]} X
+ * @param  {[person]} Y
+ * @return {[bool]}
+ */
+different(X,Y) :-
+  not(X = Y).
+%different(person(jonny, wang), person(jonny, wang)).
+%different(person(betty, wang), person(jonny, wang)).
+
+/**
+ * Checks if there exists a value where mother(X, value) is a fact.
+ * @param  {[person]}  X
+ * @return {Boolean}
+ */
 is_mother(X) :-
-  mother(X,Y).
-% is_father(X)  X is a father
+  mother(X,_).
+%is_mother(person(betty, wang)).
+
+/**
+ * Checks if there exists a value where father(X, value) is a fact.
+ * @param  {[Person]}  X
+ * @return {Boolean}
+ */
 is_father(X) :-
-  father(X,Y).
+  father(X,_).
+%is_father(person(fred, wang)).
+%is_father(person(jonny, wang)).
 
-% sister(X,Y)  X is a sister of Y
-sister(person(Name, gender(female),_,_,_), person(_,_,_,_, sibling(Name))) :- !.
-% brother(X,Y)  X is a brother of Y
-brother(person(Name, gender(male),_,_,_), person(_,_,_,_, sibling(Name))) :- !.
-
-% aunt(X,Y)  X is an aunt of Y
+/**
+ * Determines if X is an aunt of Y
+ * P being a parent to X, and Q would imply
+ * that X and Q are siblings (X != Q)
+ * If Q has a child, and X is female,
+ * X is said to be an aunt of Y.
+ * @param  {[person]} X [Potential aunt of Y]
+ * @param  {[person]} Y [Subject of aunthood]
+ * @return {[bool, person]}
+ */
 aunt(X,Y) :-
-  sister(X,Z),
-  parent(Z,Y),!.
-% uncle(X,Y)  X is an uncle of Y
-uncle(X,Y) :-
-  brother(X,Z),
-  parent(Z,Y),!.
-% grandfather(X,Y)  X is a grandfather of Y
-grandfather(X,Y) :-
-  male(X),
-  parent(X,Z),
-  parent(Z,Y),!.
-% grandmother(X,Y)  X is a grandmother of Y
-grandmother(X,Y) :-
   female(X),
-  parent(X,Z),
-  parent(Z,Y),!.
-% ancestor(X,Y)  X is an ancestor of Y
-ancestor(X,Y) :- parent(X,Y), !.
+  parent(P,X),
+  parent(P,Q),
+  different(X,Q),
+  parent(Q,Y).
+%aunt(person(susan, lee), person(jonny, wang)).
+%aunt(person(susan, lee), person(fred, wang)).
+%aunt(person(fred, lee), person(jonny, wang)).
+
+/**
+ * Determines if X is an uncle of Y
+ * P being a parent to X, and Q would imply
+ * that X and Q are siblings (X != Q)
+ * If Q has a child, and X is male,
+ * X is said to be an uncle of Y.
+ * @param  {[person]} X [Potential uncle of Y]
+ * @param  {[person]} Y [Subject of uncle X]
+ * @return {[bool, person]}
+ */
+uncle(X,Y) :-
+  male(X),
+  parent(P,X),
+  parent(P,Q),
+  different(X,Q),
+  parent(Q,Y).
+%uncle(person(susan, lee), person(jonny, wang)).
+%uncle(person(susan, lee), person(fred, wang)).
+%uncle(person(fred, lee), person(jonny, wang)).
+
+/**
+ * X is said to be a sister of Y iff
+ * - X is a female
+ * - They share parent P
+ * - X is not the same as Y, their potential sibling.
+ * @param  {[person]} X
+ * @param  {[person]} Y
+ * @return {[bool, person]}
+ */
+sister(X,Y) :-
+  female(X),
+  parent(P,X),
+  parent(P,Y),
+  different(X,Y).
+%sister(person(susan, lee), X).
+
+/**
+ * X is said to be a brother of Y iff
+ * - X is a male
+ * - They share parent P
+ * - X is not the same as Y, their potential sibling.
+ * @param  {[person]} X
+ * @param  {[person]} Y
+ * @return {[bool, person]}
+ */
+brother(X,Y) :-
+  male(X),
+  parent(P,X),
+  parent(P,Y),
+  different(X,Y).
+%brother(person(fred,lee), person(susan, lee)).
+%brother(person(susan,lee), person(fred, lee)).
+%brother(person(fred,lee), person(jonny, wang)).
+
+/**
+ * X is said to be grandfather of y iff
+ * - If there exists a Z such that X is their father
+ * - Z exists as a parent to any given Y.
+ * @param  {[person]} X [Grandfather]
+ * @param  {[person]} Y [Grandchild]
+ * @return {[bool, person]}
+ */
+grandfather(X,Y) :-
+  father(X,Z),
+  parent(Z,Y).
+%grandfather(person(alex, lee), person(jonny, wang)).
+%grandfather(person(alex, lee), person(betty, wang)).
+%grandfather(person(alex, lee), person(tom, wang)).
+
+/**
+ * X is said to be mother of y iff
+ * - If there exists a Z such that X is their mother
+ * - Z exists as a parent to any given Y.
+ * @param  {[person]} X [grandmother]
+ * @param  {[person]} Y [Grandchild]
+ * @return {[bool, person]}
+ */
+grandmother(X,Y) :-
+  mother(X,Z),
+  parent(Z,Y).
+%grandmother(person(wendy, lee), person(jonny, wang)).
+%grandmother(person(wendy, lee), person(betty, wang)).
+%grandmother(person(wendy, lee), person(tom, wang)).
+
+
+/**
+ * X ancestor of Y if there recursively exists a parent Z to
+ * target Y. (inductive reasoning)...
+ * @param  {[person]} X
+ * @param  {[person]} Y
+ * @return {[bool, person]}
+ */
 ancestor(X,Y) :-
-  parent(X,Z), % x is a parent of z,
-  ancestor(Z, Y). %move close to y.
+  parent(X,Y).
+
+ancestor(X,Y) :-
+  parent(X,Z),
+  ancestor(Z,Y).
+%ancestor(person(wendy, lee), person(jonny, wang)).
+%ancestor(person(alex,lee), X).
