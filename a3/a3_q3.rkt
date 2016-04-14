@@ -78,5 +78,4 @@
   (define (h n s)
     (cons-stream n (h (+ n (stream-car (stream-cdr s))) (stream-cdr s))))
   (h (stream-car stream) stream))
-
 (provide (all-defined-out))
