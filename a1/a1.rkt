@@ -14,7 +14,7 @@
 ;Recursive factorial.
 ;@args n (type Number)
 ;@output [type Number]
-;f(n) = n, if n<4 
+;f(n) = n, if n<4
 ;f(n) = f(n-1) + 2f(n-2) + 3f(n-3) + 4f(n-4), otherwise
 (define (rec-f n)
   (if (< n 4) n
